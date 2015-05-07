@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["StatusCode","A StatusCode represents a HTTP response status code."],["StatusCodeClass",""]]});

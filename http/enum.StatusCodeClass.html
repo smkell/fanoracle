@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `StatusCodeClass` enum in crate `http`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, StatusCodeClass">
+
+    <title>http::StatusCodeClass - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <section class="sidebar">
+        
+        <p class='location'><a href='index.html'>http</a></p><script>window.sidebarCurrent = {name: 'StatusCodeClass', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press 'S' to search, '?' for more options..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>http</a>::<wbr><a class='enum' href=''>StatusCodeClass</a><wbr></span><span class='out-of-band'><span id='render-detail'>
+            <a id="collapse-all" href="#">[-]</a>&nbsp;<a id="expand-all" href="#">[+]</a>
+        </span><a id='src-1022' href='../src/http/statuscodes.rs.html#524-605'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum StatusCodeClass {
+    Informational,
+    Successful,
+    Redirection,
+    ClientError,
+    ServerError,
+}</pre><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.Informational'><a class='stability Unmarked' title='No stability level'></a><code>Informational</code></td><td><div class='docblock'><p>1xx - Informational (<a href="http://tools.ietf.org/html/rfc7231#section-6.2">http://tools.ietf.org/html/rfc7231#section-6.2</a>)</p>
+
+<p>The 1xx (Informational) class of status code indicates than an interim response for
+communicating connection status or request progress prior to completing the requested
+action and sending a final response. 1xx respones are terminated by the first empty line
+after the status-line (the empty line signaling the end of the header section). Since
+HTTP/1.0 did not define any 1xx status codes, a server MUST NOT send a 1xx response to an
+HTTP/1.0 client.</p>
+
+<p>A client MUST be able to parse one or more 1xx responses received prior to a final
+response, even if the client does not expect one. A user agent MAY ignore unexpected 1xx
+responses.</p>
+
+<p>A proxy MUST forward 1xx responses unless the proxy itself requested the generation of the
+1xx response. For example, if a proxy adds an &quot;Expect: 100-continue&quot; field when it forwards
+a request, then it need not forward the corresponding 100 (Continue) response(s).</p>
+</div></td></tr><tr><td id='variant.Successful'><a class='stability Unmarked' title='No stability level'></a><code>Successful</code></td><td><div class='docblock'><p>2xx - Successful (<a href="http://tools.ietf.org/html/rfc7231#section-6.3">http://tools.ietf.org/html/rfc7231#section-6.3</a>)</p>
+
+<p>The 2xx (Successful) class of status code indicates that the client&#39;s request was 
+successfully received, understood, and accepted.</p>
+</div></td></tr><tr><td id='variant.Redirection'><a class='stability Unmarked' title='No stability level'></a><code>Redirection</code></td><td><div class='docblock'><p>3xx - Redirection (http:://tools.ietf.org/html/rfc7231#section-6.4)</p>
+
+<p>The 3xx (Redirection) class of status code indicates that further action needs to be taken
+by the user agent in order to fulfill the request. If a Location header field
+(<a href="http://tools.ietf.org/html/rfc7231#section-7.1.2">Section 7.1.2 of [RFC7231]</a>) is
+provided, the user agent MAY automatically redirect its request to the URI referenced by the
+Location field value, even if the specific status code is not understood. Automatic
+redirection needs to be done with care for methods not known to be safe, as defined in 
+(<a href="http://tools.ietf.org/html/rfc7231#section-4.2.1">Section 4.2.1 of [RFC7231]</a>), since
+the user might not wish to redirect an unsafe request.</p>
+
+<p>There are several types of redirects:</p>
+
+<ol>
+<li>Redirects that indicate the resource might be available at a different URI, as provided 
+by the Location field as in the status codes 301 (Moved Permanently), 302 (Found), and 
+307 (Temporary Redirect).</li>
+<li>Redirection that offers a choice of matching resources, each capable of representing the
+original request target, as in the 300 (Multiple Choices) status code.</li>
+<li>Redirection to a different resource, identified by the Location field, that can represent
+an indirect response to the request as in the 303 (See Other) status code.</li>
+<li>Redirection to a previously cached result, as in the 304 (Not Modified) status code.</li>
+</ol>
+
+<blockquote>
+<p>Note: In HTTP/1.0, the status codes 301 (Moved Permanently) and 302 (Found) were defined 
+for the first type of redirect 
+(<a href="http://tools.ietf.org/html/rfc1945#section-9.3">[RFC1945], Section 9.3</a>). Early user
+agents split on whether the method applied to the redirect target would be the same as the
+original request or would be rewritten as GET. Although HTTP originally defined the former
+semantics for 301 and 302 (to match its original implementation at CERN), and defined 303
+(See Other) to match the latter semantics for 301 and 302 as well. The first revision of
+HTTP/1.1 added 307 (Temporary Redirect) to indicate the former semantics without being
+impacted by divergent practice. Over 10 years later, most user agents still do method
+rewriting for 301 and 302; therefore, this specification makes that behavior conformant
+when the original request is POST.</p>
+</blockquote>
+
+<p>A client SHOULD detect and intervene in cyclical redirections (i.e., &quot;infinite&quot; redirection
+loops).</p>
+
+<blockquote>
+<p>Note: An earlier version of this specification recommended a maximum of five redirections
+(<a href="http://tools.ietf.org/html/rfc2068#section-10.3">[RFC2068], Section 10.3</a>). Content
+developers need to be aware that some clients might implement such a fixed limitation.</p>
+</blockquote>
+</div></td></tr><tr><td id='variant.ClientError'><a class='stability Unmarked' title='No stability level'></a><code>ClientError</code></td><td><div class='docblock'><p>4xx - Client Error (<a href="http://tools.ietf.org/html/rfc7231#section-6.5">http://tools.ietf.org/html/rfc7231#section-6.5</a>)</p>
+
+<p>The 4xx (Client Error) class of status code indicates that the client seems to have
+erred. Except when responding to a HEAD request, the server SHOULD send a representation
+containing an explanation of the error situation, and whether it is a temporary or permanent
+condition. These status codes are applicable to any request method. User agents SHOULD
+display any included representation to the user.</p>
+</div></td></tr><tr><td id='variant.ServerError'><a class='stability Unmarked' title='No stability level'></a><code>ServerError</code></td><td><div class='docblock'><p>5xx - Server Error (<a href="http://tools.ietf.org/html/rfc7231#section-6.6">http://tools.ietf.org/html/rfc7231#section-6.6</a>)</p>
+
+<p>The 5xx (Server Error) class of status code indicates that the server is aware that it has
+erred or is incapable of performing the requested method. Except when responding to a HEAD
+request, the server SHOULD send a representation containing an explanation of the error 
+situation, and whether it is temporary or permanent condition. A user agent SHOULD display
+any included representation to the user. These response codes are applicable to any request
+method.</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../http/enum.StatusCodeClass.html' title='http::StatusCodeClass'>StatusCodeClass</a></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='http://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='http://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><a class='stability Stable' title='Stable'></a><code>impl <a class='trait' href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../http/enum.StatusCodeClass.html' title='http::StatusCodeClass'>StatusCodeClass</a></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../http/enum.StatusCodeClass.html' title='http::StatusCodeClass'>StatusCodeClass</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><a class='stability Stable' title='Stable'></a><code>fn <a href='http://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../http/enum.StatusCodeClass.html' title='http::StatusCodeClass'>StatusCodeClass</a>) -&gt; <a href='http://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&larrb;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&rarrb;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code>, <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "http";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script async src="../search-index.js"></script>
+</body>
+</html>
