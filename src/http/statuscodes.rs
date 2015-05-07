@@ -446,13 +446,15 @@ pub enum StatusCode {
     /// 
     /// Example:
     /// 
-    ///     HTTP/1.1 426 Upgrade Required
-    ///     Upgrade: HTTP/3.0
-    ///     Connection: Upgrade
-    ///     Content-Length: 53
-    ///     Content-Type: text/plain
-    ///     
-    ///     This service requires use of HTTP/3.0 protocol.
+    /// ```c 
+    /// HTTP/1.1 426 Upgrade Required
+    /// Upgrade: HTTP/3.0
+    /// Connection: Upgrade
+    /// Content-Length: 53
+    /// Content-Type: text/plain
+    ///  
+    /// This service requires use of HTTP/3.0 protocol.
+    /// ```
 	UpgradeRequired,
 	/// 500 - Internal Server Error (http://tools.ietf.org/html/rfc7231#section-6.6.1)
     /// 
