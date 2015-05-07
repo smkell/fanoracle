@@ -1,6 +1,6 @@
 language: rust
 sudo: false
-scriptt:
+script:
 - cargo build --verbose
 - cargo test --verbose
 - cargo doc --verbose
