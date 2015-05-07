@@ -1,0 +1,14 @@
+[package]
+name = "fanoracle"
+version = "0.1.0"
+authors = ["Sean Kell <sean.michael.kell@gmail.com>"]
+
+[[bin]]
+name = "fanoracle"
+path = "src/main.rs"
+
+[lib]
+name = "http"
+path = "src/http/lib.rs"
+test = true
+doc = true
