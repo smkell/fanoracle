@@ -520,6 +520,8 @@ pub enum StatusCode {
 	Extension(u16, String)
 }
 
+/// A StatusCodeClass is a grouping of status codes which indicates how a user-agent should respond
+/// to the code.
 #[derive(PartialEq, Debug)]
 pub enum StatusCodeClass {
 	/// 1xx - Informational (http://tools.ietf.org/html/rfc7231#section-6.2)
@@ -605,6 +607,7 @@ pub enum StatusCodeClass {
 }
 
 impl StatusCode {
+    /// Constructs a new StatusCode object from the given u16.
 	pub fn from_u16(n: u16) -> StatusCode {
 		use statuscodes::StatusCode::*;
 
@@ -654,6 +657,7 @@ impl StatusCode {
 		}
 	}
 
+    /// Converts a StatusCode object to the equivalent u16.
 	pub fn to_u16(self) -> u16 {
 		use statuscodes::StatusCode::*;
 
@@ -703,6 +707,7 @@ impl StatusCode {
 		}
 	}
 
+    /// Retrieves the StatusCodeClass of a StatusCode object.
 	pub fn class(self) -> Option<StatusCodeClass> {
 		match self.to_u16() {
 			100 ... 199 => Some(StatusCodeClass::Informational),
