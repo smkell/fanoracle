@@ -6,6 +6,7 @@ authors = ["Sean Kell <sean.michael.kell@gmail.com>"]
 [[bin]]
 name = "fanoracle"
 path = "src/main.rs"
+test = false
 
 [lib]
 name = "http"
