@@ -4,13 +4,14 @@ scriptt:
 - cargo build --verbose
 - cargo test --verbose
 - cargo doc --verbose
-after_scucess: ! 
-    [ $TRAVIS_BRANCH = master ] &&
-    [ $TRAVIS_PULL_REQUEST = false ] &&
-    echo '<meta http-equiv=refresh content=0;url=http/index.html>' > target/doc/index.html &&
-    pip install ghp-import --user $USER &&
-    $HOME/.local/bin/ghp-import -n target/doc &&
-    git push -fq https://${TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
+
+after_success: |
+  [ $TRAVIS_BRANCH = master ] &&
+  [ $TRAVIS_PULL_REQUEST = false ] &&
+  echo '<meta http-equiv=refresh content=0;url=libc/index.html>' > target/doc/index.html &&
+  pip install ghp-import --user $USER &&
+  $HOME/.local/bin/ghp-import -n target/doc &&
+  git push -fq https://${TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
 
 env:
   global:
