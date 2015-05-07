@@ -1,5 +1,11 @@
 language: rust
-sudo: false
+matrix:
+    fast_finish: true
+    include:
+        - rust: nightly
+          sudo: false
+        - rust: beta
+          sudo: false
 script:
 - cargo build --verbose
 - cargo test --verbose
