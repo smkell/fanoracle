@@ -4,20 +4,14 @@ scriptt:
 - cargo build --verbose
 - cargo test --verbose
 - cargo doc --verbose
-after_scucess: ! '[ $TRAVIS_BRANCH = master ] &&
+after_scucess: ! 
+    [ $TRAVIS_BRANCH = master ] &&
+    [ $TRAVIS_PULL_REQUEST = false ] &&
+    echo '<meta http-equiv=refresh content=0;url=http/index.html>' > target/doc/index.html &&
+    pip install ghp-import --user $USER &&
+    $HOME/.local/bin/ghp-import -n target/doc &&
+    git push -fq https://${TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
 
-  [ $TRAVIS_PULL_REQUEST = false ] &&
-
-  echo ''<meta http-equiv=refresh content=0;url=http/index.html>'' > target/doc/index.html
-  &&
-
-  pip install ghp-import --user $USER &&
-
-  $HOME/.local/bin/ghp-import -n target/doc &&
-
-  git push -fq https://${TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git gh-pages
-
-'
 env:
   global:
     secure: lD1YNV1Dt1cn/hgVrb84KEf0r0IshHrie+RCDZI1xShTLqWEvnqi68vIj/Rt7ES52p2T7ajwgOivmpd/5UoQKfh+ccS6jQxTjYuFKtZz9EPLCmn6tcB/vOwOeJAuj9ou0ms6PWEvRaQpsWLPdtA6aaUbiXxp0IOsVWaBFnYLSIknb2NChDFULAvRRILo/kRk1oWkDLGCufqGhyNMTneuy+hqZWYv9nBFXSOV9mRFdLS6YyT1X8MyKUnEPu/ssAqUxldnW8qXAqhCmNhq31iKRIR6/W81njSvKPaYcmdq9+kRahAXt5/KrSLiJ7QUA8nxv/14inR+Gvs90F3/tT76kf8QpjnEKwVEeke89qNKD5T1Iy1JFt36DkQCO1GDjAU1RtnE0aeMCoxoI72hpFpKcfuAn+OB781N4VAmEBA1XBzFEnqd8KkM73dDmT/MRfOx9c5AV3GjjAV7PDwnVTP11fQ1TNYg3UQeD1RKoPrgAl1n9zBBOLNMAjEgfDA7nksYeHy0lgem7oeMm/QpL5Esgsbizh+3y2FlUZrnb5ZbxhdHTsWIxn+9M9reUPUs2AzaidH2FaAG7188HmhYvs7GIijYQBKZbHSuBUpXoflKyZIxRttw9lZccfzmYVgi/jolZ4QyYe6K17CNjBPUhhPssoRW5TDE/k29utavAkSfpi4=
