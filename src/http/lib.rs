@@ -1,5 +1,7 @@
 //! An implemention of the HTTP protocol for both clients and servers.
 
+#![feature(convert)]
+
 mod statuscodes;
 pub mod client;
 
